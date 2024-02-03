@@ -3,7 +3,7 @@ import { Button } from 'react-daisyui';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSignupMutation } from '../features/api/userApiSlice';
+import { useSignupMutation } from '../features/api/user/userApiSlice';
 import { getUserInfo, setCredentials } from '../features/users/userSlice';
 
 const RegisterScreen = () => {
@@ -29,7 +29,7 @@ const RegisterScreen = () => {
       return;
     }
     try {
-      const res = await signup({ name, email, password }).unwrap()
+      const res = await signup({ name, email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate('/');
     } catch (err) {
@@ -49,6 +49,7 @@ const RegisterScreen = () => {
       input.type = 'password';
     }
   };
+
   const revealPassword = async () => {
     const input = document.getElementById('password');
     if (!input) {
@@ -60,6 +61,7 @@ const RegisterScreen = () => {
       input.type = 'password';
     }
   };
+
   return (
     <>
       {userExist ? (
@@ -76,6 +78,7 @@ const RegisterScreen = () => {
                 placeholder="Your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
                 className="input input-bordered w-full max-w-xs"
               />
             </label>
@@ -88,6 +91,7 @@ const RegisterScreen = () => {
                 placeholder="Your Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
                 className="input input-bordered w-full max-w-xs"
               />
             </label>
@@ -102,6 +106,7 @@ const RegisterScreen = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                   className="input input-bordered w-full max-w-xs"
                 />
                 <button
@@ -126,6 +131,7 @@ const RegisterScreen = () => {
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
                   className="input input-bordered w-full max-w-xs"
                 />
                 <button

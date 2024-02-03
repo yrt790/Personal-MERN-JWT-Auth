@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clearCredentials } from '../features/users/userSlice.js';
 import { useEffect } from 'react';
-import { useLogoutMutation } from '../features/api/userApiSlice.js';
+import { useLogoutMutation } from '../features/api/user/userApiSlice.js';
 
 const Logout = () => {
   const dispatch = useDispatch();

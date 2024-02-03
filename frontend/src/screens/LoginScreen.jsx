@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useLoginMutation } from '../features/api/userApiSlice';
+import { useLoginMutation } from '../features/api/user/userApiSlice';
 import { setCredentials } from '../features/users/userSlice';
 
 const LoginScreen = () => {
@@ -53,6 +53,7 @@ const LoginScreen = () => {
             placeholder="Type your email here"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
             className="input input-bordered w-full max-w-xs"
           />
         </label>
@@ -67,6 +68,7 @@ const LoginScreen = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
               className="input input-bordered w-full max-w-xs"
             />
             <button

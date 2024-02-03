@@ -5,6 +5,13 @@ import { getUserInfo } from '../features/users/userSlice';
 const NavBar = () => {
   const userExist = useSelector(getUserInfo);
 
+  const handleClick = () => {
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
+  };
+
   return (
     <nav className="navbar bg-base-100 border-b flex justify-between">
       <Link to="/" className="btn btn-ghost text-2xl font-bold">
@@ -32,16 +39,15 @@ const NavBar = () => {
         >
           {userExist ? (
             <>
-              <li>
+              <li onClick={handleClick}>
                 <Link to="/profile">Profile</Link>
               </li>
-              <li>
+              <li onClick={handleClick}>
                 <Link to="/logout">Logout</Link>
               </li>
             </>
           ) : (
-            <li>
-              {' '}
+            <li onClick={handleClick}>
               <Link to="/login">Login</Link>
             </li>
           )}

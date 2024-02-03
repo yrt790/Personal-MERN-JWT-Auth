@@ -7,7 +7,6 @@ const AuthUser = () => {
 
   return (
     <section>
-      <h1>Auth Page</h1>
       {userExist ? <Outlet /> : <Navigate to="/" replace={true} /> }
     </section>
   )
