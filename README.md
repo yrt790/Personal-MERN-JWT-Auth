@@ -1,4 +1,4 @@
-# MERN JTW Authentication
+# MERN JWT Authentication
 
 ## Stack:
 - MongoDB
