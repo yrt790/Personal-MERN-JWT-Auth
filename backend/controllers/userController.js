@@ -23,8 +23,8 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!user) {
     throw new Error('Something went wrong. Try Again.');
   }
-
-  res.status(201).json({ message: 'User was created sucessfully.' });
+  generateToken(res, user._id);
+  res.status(201).json({ _id: user._id, name: user.name, email: user.email });
 });
 
 // @desc  Login user

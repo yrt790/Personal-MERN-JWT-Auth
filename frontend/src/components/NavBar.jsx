@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getUserInfo } from '../features/users/userSlice';
 
 const NavBar = () => {
+  const userExist = useSelector(getUserInfo);
+
   return (
     <nav className="navbar bg-base-100 border-b flex justify-between">
       <Link to="/" className="btn btn-ghost text-2xl font-bold">
@@ -26,12 +30,21 @@ const NavBar = () => {
           tabIndex={0}
           className="bg-base-300 dropdown-content z-[1] menu p-2 shadow rounded-box w-52"
         >
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
+          {userExist ? (
+            <>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link to="/logout">Logout</Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              {' '}
+              <Link to="/login">Login</Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

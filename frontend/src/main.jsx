@@ -16,10 +16,12 @@ import ProfileScreen from './screens/ProfileScreen.jsx';
 import { Provider } from 'react-redux';
 import store from './app/store.js';
 import Logout from './components/Logout.jsx';
+import NotFound from './components/NotFound.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
+      <Route path="*" element={<NotFound />} />
       {/* Public Routes */}
       <Route index element={<HomeScreen />} />
       <Route path="login" element={<LoginScreen />} />
