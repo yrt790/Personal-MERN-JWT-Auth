@@ -23,12 +23,12 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!user) {
     throw new Error('Something went wrong. Try Again.');
   }
-
-  res.status(201).json({ message: 'User was created sucessfully.' });
+  generateToken(res, user._id);
+  res.status(201).json({ _id: user._id, name: user.name, email: user.email });
 });
 
 // @desc  Login user
-// route  POST /api/user
+// route  POST /api/user/login
 // access Public
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -41,14 +41,14 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
-    res.status(200).json({ message: 'User has been logged in' });
+    res.status(200).json({ _id: user._id, name: user.name, email: user.email });
   } else {
     throw new Error('Email or Password is incorrect');
   }
 });
 
 // @desc  Logout
-// route  POST /api/user/register
+// route  POST /api/user/logout
 // access Private
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie('jwt', '', {
@@ -57,24 +57,12 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User has been logged out' });
 });
 
-// @desc  Get user profile
-// route  GET /api/user/profile
-// access private
-const getUserProfile = asyncHandler(async (req,res) => {
-  const user = {
-    _id: req.user._id,
-    name: req.user.name,
-    email: req.user.email
-  }
-  res.status(200).json({user})
-})
-
-
 // @desc  Register a new User
-// route  POST /api/user/register
+// route  PUT /api/user/profile
 // access Private
 const updateProfile = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
+
   if (!name | !email) {
     throw new Error('All fields are required');
   }
@@ -93,7 +81,7 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 
   await user.save();
-  res.status(200).json({ message: 'User updated successfully' });
+  res.status(200).json({ _id: user._id, name: user.name, email: user.email });
 });
 
-export { registerUser, loginUser, logoutUser, updateProfile, getUserProfile };
+export { registerUser, loginUser, logoutUser, updateProfile };
