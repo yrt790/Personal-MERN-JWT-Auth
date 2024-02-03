@@ -1,0 +1,4 @@
+PORT = <!-- Your Server Port Number -->
+NODE_ENV = <!-- deveplopment or production -->
+MONGO_URI= <!-- Your MongoDB Connection URI -->
+JWT_SECRET = <!-- Your JWT Secret Key -->
