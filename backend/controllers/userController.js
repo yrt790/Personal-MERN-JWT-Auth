@@ -28,7 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 // @desc  Login user
-// route  POST /api/user
+// route  POST /api/user/login
 // access Public
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -41,14 +41,14 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
-    res.status(200).json({ message: 'User has been logged in' });
+    res.status(200).json({ _id: user._id, name: user.name, email: user.email });
   } else {
     throw new Error('Email or Password is incorrect');
   }
 });
 
 // @desc  Logout
-// route  POST /api/user/register
+// route  POST /api/user/logout
 // access Private
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie('jwt', '', {
@@ -60,18 +60,17 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @desc  Get user profile
 // route  GET /api/user/profile
 // access private
-const getUserProfile = asyncHandler(async (req,res) => {
+const getUserProfile = asyncHandler(async (req, res) => {
   const user = {
     _id: req.user._id,
     name: req.user.name,
-    email: req.user.email
-  }
-  res.status(200).json({user})
-})
-
+    email: req.user.email,
+  };
+  res.status(200).json({ user });
+});
 
 // @desc  Register a new User
-// route  POST /api/user/register
+// route  POST /api/user/profile
 // access Private
 const updateProfile = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
